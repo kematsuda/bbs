@@ -2,51 +2,9 @@
 
 class Article {
 
-    protected $record = array();
-    private static $read_properties = array('thread_id',
-                                            'user_id',
-                                            'user_name',
-                                            'title',
-                                            'body');
+    const MAX_ARTICLES = 1000;
 
-    private static $write_properties = array('thread_id',
-                                             'user_id',
-                                             'user_name',
-                                             'title',
-                                             'body');
-
-    public function __construct($record)
-    {
-        $this->record = $record;
-    }
-
-    protected function __set($name, $value)
-    {
-        if(array_search($name, self::$write_properties) !== false)
-        {
-            $this->record[$name] = $value;
-        }
-    }
-
-    protected function __get($name)
-    {
-        return $this->record[$name];
-    }
-
-    //記事を取得してくるメソッド
-    protected function findAll($offset = 0, $limit = self::FIND_LIMIT)
-    {
-        $sql =<<<SQL
-SELECT
-    *
-FROM
-    `article`
-LIMIT
-    $offset, $limit
-SQL;
-    }
-
-    protected function findById($id)
+    protected function findOneResById($log_dir, $thread_id, $limit = 1)
     {
         $sql =<<<SQL
 SELECT
@@ -54,25 +12,114 @@ SELECT
 FROM
     `article`
 WHERE
-    `id` = $id
+    `thread_id` = ?
+LIMIT
+    $limit
 SQL;
+        try
+        {
+            return DBManager::q($sql);
+        }
+        catch (Exception $e)
+        {
+            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 2, $log_dir);
+            return false;
+        }
     }
 
-    protected function save($article)
+    protected function countArticles($log_dir, $thread_id)
+    {
+        $sql =<<<SQL
+SELECT
+    count(`id`) as `count`
+FROM
+    `article`
+WHERE
+    `thread_id` = ?
+SQL;
+        try
+        {
+            return DBManager::q($sql, array($thread_id));
+        }
+        catch (Exception $e)
+        {
+            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 2, $log_dir);
+            return false;
+        }
+
+    }
+
+    protected function findAllById($log_dir, $thread_id, $offset = 1, $limit = self::MAX_ARITICLES)
+    {
+        $sql =<<<SQL
+SELECT
+    *
+FROM
+    `article`
+WHERE
+    `thread_id` = ?
+LIMIT
+    $offset, $limit
+SQL;
+        try
+        {
+            return DBManager::q($sql);
+        }
+        catch (Exception $e)
+        {
+            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 2, $log_dir);
+            return false;
+        }
+    }
+
+    protected function save($log_dir, $article)
     {
         $sql =<<<SQL
 INSERT INTO
     `article`
 SET
     `id` = ?,
-    `user_id` = ?,
+    `thread_id` = ?,
     `user_name` = ?,
-    `title` = ?,
-    `body` = ?
+    `body` = ?,
+    `inserted_at` = now()
 SQL;
+        $binds = array($article['id'],
+                       $article['thread_id'],
+                       $article['user_name'],
+                       $article['body']);
+        try
+        {
+            DBManager::save($sql, $binds);
+            ThreadInfo::updateThread($log_dir, $article['thread_id']);
+            return true;
+        }
+        catch (Exception $e)
+        {
+            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured where thread was created", 2, $log_dir);
+            return false;
+        }
+
+
     }
 
-    protected function update($article)
+    public function deleteAllArticles($log_dir, $thread_id)
     {
+        $sql =<<<SQL
+DELETE FROM
+    `article`
+WHERE
+    `thread_id` = ?
+SQL;
+        try
+        {
+            DBManager::save($sql, $array($thread_id));
+            return true;
+        }
+        catch (Exception $e)
+        {
+            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured when thread was deleted", 2, $log_dir);
+            return false;
+        }
     }
 }
