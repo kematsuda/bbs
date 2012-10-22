@@ -15,7 +15,7 @@ Class BBSController
 
     public function show()
     {
-        $template_file = $base_dir_path . 'bbs.html';
+        $template_file = $this->$base_dir_path . 'bbs.html';
         $thread_info = BBS::findAll(self::$log_dir);
         $params['thread_names'] = $thread_names;
         self::render($params, $template_file);
