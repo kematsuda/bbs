@@ -1,22 +1,25 @@
 <?php
 
 require_once '/home/work/bbs/app/controller/smarty_config.php';
+require_once '/home/work/bbs/core/Request.php';
+require_once '/home/work/bbs/core/Router.php';
 
 Class BBSController
 {
     const DEFAULT_ARTICLES = 20;
-    public $base_dir_path = '/home/work/bbs/app/template/';
-    public static $log_dir = null;
+    public $base_dir_path = null;
+    public $log_dir = null;
 
     public function __construct()
     {
-        self::$log_dir = dirname(__FILE__) . '/../../log/';
+        $this->base_dir_path = dirname(__FILE__) . '/../app/template/';
+        $this->log_dir = dirname(__FILE__) . '/../../log/';
     }
 
     public function show()
     {
         $template_file = $this->$base_dir_path . 'bbs.html';
-        $thread_info = BBS::findAll(self::$log_dir);
+        $thread_info = ThreadInfo::findAll($this->log_dir);
         $params['thread_names'] = $thread_names;
         self::render($params, $template_file);
     }
@@ -25,10 +28,10 @@ Class BBSController
     {
         $template_file = $base_dir_path . 'thread.html';
         $params = array();
-        $thread_info = ThreadInfo::findById(self::$log_dir, $id);
+        $thread_info = ThreadInfo::findById($this->log_dir, $id);
         $params['thread_info'] = $thread_info;
         $count_articles = intval($thread_info['count_articles']);
-        $first_article = Article::findOneResById(self::$log_dir, $id);
+        $first_article = Article::findOneResById($this->log_dir, $id);
         $params['first_article'] = $first_article;
         if($count_articles <= self::DEFAULT_ARTICLES)
         {
@@ -40,7 +43,7 @@ Class BBSController
             $offset = self::DEFAULT_ARTICLES - $count_articles;
             $limit = self::DEFAULT_ARTICLES;
         }
-        $articles = Article::findAllById(self::$log_dir, $id, $offset, $limit);
+        $articles = Article::findAllById($this->log_dir, $id, $offset, $limit);
         $params['articles'] = $articles;
         self::render($params, $template_file);
     }
@@ -49,9 +52,9 @@ Class BBSController
     {
         $template_file = $base_dir_path . 'thread.html';
         $params = array();
-        $thread_info = ThreadInfo::findById(self::$log_dir, $id);
+        $thread_info = ThreadInfo::findById($this->log_dir, $id);
         $params['thread_info'] = $thread_info;
-        $articles = Article::findAllById(self::$log_dir, $id);
+        $articles = Article::findAllById($this->log_dir, $id);
         $params['articles'] = $articles;
         self::render($params, $template_file);
     }
