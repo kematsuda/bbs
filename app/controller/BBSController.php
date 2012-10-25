@@ -25,7 +25,7 @@ Class BBSController
     {
         $thread_names = array();
         foreach($thread_info as $info) {
-            $thread_names = $info['thread_name'];
+            $thread_names[] = $info['thread_name'];
         }
         return $thread_names;
     }
