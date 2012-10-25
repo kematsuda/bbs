@@ -7,7 +7,7 @@ class DBManager
 
     public static function setupDB($DbName)
     {
-        $file = fopen(dirname(__FILE__) . '/../../conf/db_usser.conf');
+        $file = fopen(dirname(__FILE__) . '/../../conf/db_usser.conf', "r");
         self::$user = fgets($file);
         self::$DbName = $DbName;
     }
