@@ -1,6 +1,5 @@
 <?php
-
-require_once dirname(__FILE__) . '/smarty_config.php';
+require_once '/usr/local/lib/Smarty-3.1.12/libs/Smarty.class.php';
 
 Class BBSController
 {

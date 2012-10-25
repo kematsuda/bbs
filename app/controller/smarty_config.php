@@ -1,6 +1,6 @@
 <?php
 
-require_once '/usr/local/lib/Smarty-3.1.12/libs/Smarty.class.php';
+
 class SmartyConfig extends Smarty
 {
     public function setup()
