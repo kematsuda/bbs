@@ -12,13 +12,13 @@ Class BBSController
 
     public function __construct()
     {
-        $this->base_dir_path = dirname(__FILE__) . '/../app/template/';
+        $this->base_dir_path = dirname(__FILE__) . '/../app/templates/';
         $this->log_dir = dirname(__FILE__) . '/../../log/';
     }
 
     public function show()
     {
-        $template_file = $this->$base_dir_path . 'bbs.html';
+        $template_file = $this->base_dir_path . 'bbs.html';
         $thread_info = ThreadInfo::findAll($this->log_dir);
         $params['thread_names'] = $thread_names;
         self::render($params, $template_file);
