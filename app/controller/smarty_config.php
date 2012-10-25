@@ -3,7 +3,7 @@
 require_once '/usr/local/lib/Smarty-3.1.12/libs/Smarty.class.php';
 class SmartyConfig
 {
-    public function __construct()
+    public static function setup()
     {
         ini_set( 'display_errors', 1 );
         $smarty = new Smarty();
