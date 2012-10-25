@@ -69,8 +69,7 @@ Class BBSController
     public static function render($params, $template_file)
     {
         $keys = array_keys($params);
-        $smarty_config = new SmartyConfig();
-        $smarty = $smarty_config->setup();
+        $smarty = new SmartyConfig();
         foreach($keys as $key)
         {
             $smarty->assign($key, $params[$key]);
