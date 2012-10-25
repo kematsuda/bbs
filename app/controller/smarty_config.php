@@ -1,6 +1,6 @@
 <?php
 ini_set( 'display_errors', 1 );
-define( 'SMARTY_DIR', '/usr/local/lib/Smarty-2.6.18/libs/' );
+define( 'SMARTY_DIR', '/usr/local/lib/Smarty-3.1.12/libs/' );
 require_once( SMARTY_DIR .'Smarty.class.php' );
 $smarty = new Smarty();
 
