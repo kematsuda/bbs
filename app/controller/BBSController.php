@@ -26,7 +26,7 @@ Class BBSController
     {
         $thread_names = array();
         foreach($thread_info as $info) {
-            $thread_names = $info['thread_name'];
+            $thread_names = $info['thread_names'];
         }
         return $thread_names;
     }
@@ -69,8 +69,11 @@ Class BBSController
     public static function render($params, $template_file)
     {
         $keys = array_keys($params);
-        $smarty = new SmartyConfig();
-        $smarty = $smarty->setup();
+        $smarty = new Smarty();
+        $smarty->template_dir = dirname(__FILE__) . '/../templates/';
+        $smarty->compile_dir  = dirname(__FILE__) . '/../../var/smarty/templates_c/';
+        $smarty->config_dir   = dirname(__FILE__) . '/../../var/smarty/configs/';
+        $smarty->cache_dir   = dirname(__FILE__) . '/../../var/smarty/cache/';
         foreach($keys as $key)
         {
             $smarty->assign($key, $params[$key]);
