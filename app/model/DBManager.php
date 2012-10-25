@@ -2,28 +2,30 @@
 
 class DBManager
 {
-    private $user = null;
-    public $DbName = null;
+    private static $user = null;
+    public static $DbName = null;
 
-    public function __construct($DbName)
+    public static function setupDB($DbName)
     {
         $file = fopen(dirname(__FILE__) . '/../../conf/db_usser.conf');
-        $this->user = fgets($file);
-        $this->DbName = $DbName;
+        self::$user = fgets($file);
+        self::$DbName = $DbName;
     }
 
-    public static function q($sql, $binds=array())
+    public static function q($sql, $DbName = 'bbs', $binds=array())
     {
+        self::setupDB($DbName);
         $result = array();
-        $con = new PDO('mysql:dbname=' . $this->DbName, $this->user);
+        $con = new PDO('mysql:dbname=' . self::$DbName, self::$user);
         $stmt = $con->prepare($sql);
         $stmt->execute($binds);
         return $stmt->fetchAll();
     }
 
-    public static function save($sql, $binds)
+    public static function save($sql, $DbName = 'bbs', $binds)
     {
-        $con = new PDO('mysql:dbname=' . $this->DbName, $this->user);
+        self::setupDB($DbName);
+        $con = new PDO('mysql:dbname=' . self::$DbName, self::$user);
         $stmt = $con->prepare($sql);
         $stmt->execute($binds);
     }
