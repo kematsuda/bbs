@@ -1,8 +1,6 @@
 <?php
 
-require_once '/home/work/bbs/app/controller/smarty_config.php';
-require_once '/home/work/bbs/core/Request.php';
-require_once '/home/work/bbs/core/Router.php';
+require_once dirname(__FILE__) . '/smarty_config.php';
 
 Class BBSController
 {
