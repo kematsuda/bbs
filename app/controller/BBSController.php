@@ -9,7 +9,7 @@ Class BBSController
 
     public function __construct()
     {
-        $this->base_dir_path = dirname(__FILE__) . '/../app/templates/';
+        $this->base_dir_path = dirname(__FILE__) . '/../templates/';
         $this->log_dir = dirname(__FILE__) . '/../../log/';
     }
 
