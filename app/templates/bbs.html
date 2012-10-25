@@ -7,18 +7,12 @@
         <h3>簡易BBS</h3>
         <table border=1 cellspacing=7 cellpadding=3 width=95% bgcolor="#CCFFCC"align=center>
             <tr>
+                {foreach from=$thread_names item=thread_name}
                 <td>
-                    {$thread_name[0]}
+                    {$thread_name}
                 </td>
+                {/foreach}
             </tr>
         </table>
-        <table border=1 cellspacing=7 cellpadding=3 width=95% bgcolor="#CCFFCC"align=center>
-            <tr>
-                <td>
-                    id: thread name
-                </td>
-            </tr>
-        </table>
-
     </body>
 </html>
