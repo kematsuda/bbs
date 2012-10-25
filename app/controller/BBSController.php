@@ -18,8 +18,17 @@ Class BBSController
     {
         $template_file = $this->base_dir_path . 'bbs.html';
         $thread_info = ThreadInfo::findAll($this->log_dir);
-        $params['thread_names'] = $thread_names;
+        $params['thread_names'] = self::getThreadNames($thread_info);
         self::render($params, $template_file);
+    }
+
+    public static function getThreadNames($thread_info)
+    {
+        $thread_names = array();
+        foreach($thread_info as $info) {
+            $thread_names = $info['thread_name'];
+        }
+        return $thread_names;
     }
 
     public function showThread($id)
