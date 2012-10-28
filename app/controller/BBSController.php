@@ -100,7 +100,7 @@ Class BBSController
             $requests['mail'] = $request->getPost('mail');
             $requests['body'] = $request->getPost('body');
             ThreadInfo::createThread($this->log_dir, $subject);
-            $id = ThreadInfo::findLatestThreadId();
+            $id = ThreadInfo::findLatestThreadId($this->log_dir);
             $this->insert($id, $requests, 0);
             $this->show();
         }
