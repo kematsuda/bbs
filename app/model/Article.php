@@ -22,7 +22,8 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 2, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
             return false;
         }
     }
@@ -43,7 +44,8 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 2, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
             return false;
         }
 
@@ -67,7 +69,8 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 2, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
             return false;
         }
     }
@@ -96,7 +99,8 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured where thread was created", 2, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
             return false;
         }
     }

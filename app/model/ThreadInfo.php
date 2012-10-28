@@ -13,7 +13,7 @@ SELECT
     `id`, `thread_name`
 FROM
     thread_info
-ORDER_BY
+ORDER BY
     `updated_at` DESC
 LIMIT
     $offset, $limit
@@ -24,7 +24,8 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
             return false;
         }
     }
@@ -46,7 +47,8 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 2, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
             return false;
         }
     }
@@ -68,7 +70,8 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured where thread was created", 2, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
             return false;
         }
     }
@@ -93,30 +96,10 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured where thread was created", 2, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
             return false;
         }
 
-    }
-
-    public static function deleteThread($log_dir, $id)
-    {
-        $sql =<<< SQL
-DELETE FROM
-    `thread_info`
-WHERE
-    `id` = ?
-SQL;
-        try
-        {
-            DBManager::save($sql, $array($id));
-            ARTICLE::deleteAllArticles($log_dir, $id);
-            return true;
-        }
-        catch (Exception $e)
-        {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured when thread was deleted", 2, $log_dir);
-            return false;
-        }
     }
 }
