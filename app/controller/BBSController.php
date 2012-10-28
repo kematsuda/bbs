@@ -28,7 +28,8 @@ Class BBSController
         $success_flag = true;
         $thread_info = ThreadInfo::findById($this->log_dir, $id);
         if(!is_null($request->getPost('article')) && intval($thread_info[0]['count_articles']) < 1000) {
-            $success_flag = $this->insert($id, $request, $thread_info[0]['count_articles']);
+            $article = $request->getPost('article');
+            $success_flag = $this->insert($id, $article, $thread_info[0]['count_articles']);
         }
         if(!$success_flag) {
             $params['message'] = '投稿に失敗しました';
@@ -69,9 +70,8 @@ Class BBSController
         return $article;
     }
 
-    public function insert($id, $request, $article_no)
+    public function insert($id, $article, $article_no)
     {
-        $article = $request->getPost('article');
         $insert_article['thread_id'] = $id;
         $insert_article['user_name'] = $article['user_name'];
         $insert_article['mail'] = $article['mail'];
@@ -89,6 +89,26 @@ Class BBSController
         $articles = Article::findAllById($this->log_dir, $id);
         $params['articles'] = $articles;
         self::render($params, $template_file);
+    }
+
+    public function create($request)
+    {
+        $requests = array();
+        if(!is_null($request->getPost('article'))) {
+            $subject = $request->getPost('subject');
+            $request['user_name'] = $request->getPost('name');
+            $request['mail'] = $request->getPost('mail');
+            $request['body'] = $request->getPost('body');
+            ThreadInfo::createThread($this->log_dir, $subject);
+            $id = ThreadInfo::findLatestThread();
+            $this->insert($id, $request, 0);
+            $this->show();
+        }
+        else {
+            $template_file = $this->base_dir_path . 'create_thread.html';
+            self::render($template_file);
+        }
+
     }
 
     public static function render($params, $template_file)

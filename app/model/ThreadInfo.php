@@ -60,6 +60,7 @@ INSERT INTO
 SET
     `thread_name` = ?,
     `updated_at` = now()
+    `count_articles` = 0
 SQL;
         try
         {
@@ -89,9 +90,34 @@ SQL;
         {
             $thread_info = self::findById($log_dir, $id);
             $count_articles = intval($thread_info[0]['count_articles']) + 1;
-            var_dump($count_articles);
             DBManager::save($sql, 'bbs', array($count_articles, $id));
             return true;
+        }
+        catch (Exception $e)
+        {
+            error_log(date("Y-m-d H:i:s") . ':' . $e->getMessage() . "\n", 3, $log_dir);
+            error_log(date("Y-m-d H:i:s") . ':' . __CLASS__ . ": DB_Error Occured\n", 3, $log_dir);
+            return false;
+        }
+
+    }
+
+    public static function findLatestThreadId($log_dir)
+    {
+                $sql =<<< SQL
+SELECT
+    `id`, `thread_name`
+FROM
+    thread_info
+ORDER BY
+    `id` DESC
+LIMIT
+     1
+SQL;
+        try
+        {
+           $result = DBManager::q($sql);
+           return $result[0]['id'];
         }
         catch (Exception $e)
         {
