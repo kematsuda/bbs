@@ -57,11 +57,11 @@ Class BBSController
 
     public function insert($id, $request)
     {
-        $article = $request->getPost($request);
+        $article = $request->getPost('article');
         $insert_article['thread_id'] = $id;
-        $insert_article['user_name'] = $artist['user_name'];
-        $insert_article['mail'] = $artist['mail'];
-        $insert_article['body'] = $artist['body'];
+        $insert_article['user_name'] = $article['user_name'];
+        $insert_article['mail'] = $article['mail'];
+        $insert_article['body'] = $article['body'];
         return Article::save($this->log_dir, $insert_article);
     }
 
