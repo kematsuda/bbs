@@ -1,7 +1,5 @@
 <?php
 
-require dirname(__FILE__) . '/DBManager.php';
-
 class ThreadInfo
 {
     const FIND_LIMIT = 20;

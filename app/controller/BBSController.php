@@ -37,8 +37,8 @@ Class BBSController
         else {
             $params = array();
             $thread_info = ThreadInfo::findById($this->log_dir, $id);
-            $params['thread_info'] = $thread_info;
-            $count_articles = intval($thread_info['count_articles']);
+            $params['thread_info'] = $thread_info[0];
+            $count_articles = intval($thread_info[0]['count_articles']);
             $first_article = Article::findOneResById($this->log_dir, $id);
             $params['first_article'] = $first_article;
             if($count_articles <= self::DEFAULT_ARTICLES) {
