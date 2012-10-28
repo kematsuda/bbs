@@ -29,7 +29,6 @@ Class BBSController
         $thread_info = ThreadInfo::findById($this->log_dir, $id);
         if(!is_null($request->getPost('article')) && intval($thread_info[0]['count_articles']) < 1000) {
             $success_flag = $this->insert($id, $request, $thread_info[0]['count_articles']);
-            header("Locate: /thread/$id/");
         }
         if(!$success_flag) {
             $params['message'] = '投稿に失敗しました';
@@ -38,6 +37,7 @@ Class BBSController
         }
         else {
             $params = array();
+            $thread_info = ThreadInfo::findById($this->log_dir, $id);
             $params['thread_info'] = $thread_info[0];
             $count_articles = intval($thread_info[0]['count_articles']);
             $first_article = Article::findOneResById($this->log_dir, $id);
