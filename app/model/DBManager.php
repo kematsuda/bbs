@@ -28,5 +28,6 @@ class DBManager
         $con = new PDO('mysql:dbname=' . self::$DbName, self::$user);
         $stmt = $con->prepare($sql);
         $stmt->execute($binds);
+        sleep(1);
     }
 }
