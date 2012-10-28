@@ -27,7 +27,7 @@ Class BBSController
         $template_file = $this->base_dir_path . 'thread.html';
         $success_flag = true;
         if(!is_null($request->getPost('article'))) {
-            $success_flag = $this->insert($request);
+            $success_flag = $this->insert($id, $request);
         }
         if(!$success_flag) {
             $params['message'] = '投稿に失敗しました';
