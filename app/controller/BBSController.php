@@ -30,28 +30,47 @@ Class BBSController
         return $thread_names;
     }
 
-    public function showThread($id)
+    public function showThread($id, $request)
     {
         $template_file = $base_dir_path . 'thread.html';
-        $params = array();
-        $thread_info = ThreadInfo::findById($this->log_dir, $id);
-        $params['thread_info'] = $thread_info;
-        $count_articles = intval($thread_info['count_articles']);
-        $first_article = Article::findOneResById($this->log_dir, $id);
-        $params['first_article'] = $first_article;
-        if($count_articles <= self::DEFAULT_ARTICLES)
-        {
-            $offset = 0;
-            $limit = $count_articles;
+        $success_flag = true;
+        if(!is_null($request->getPost('article'))) {
+            $success_flag = $this->insert($request);
         }
-        else
-        {
-            $offset = self::DEFAULT_ARTICLES - $count_articles;
-            $limit = self::DEFAULT_ARTICLES;
+        if(!$success_flag) {
+            $params['message'] = '投稿に失敗しました';
+            $params['id'] = $id;
+            self::render($params, $template_file);
         }
-        $articles = Article::findAllById($this->log_dir, $id, $offset, $limit);
-        $params['articles'] = $articles;
-        self::render($params, $template_file);
+        else {
+            $params = array();
+            $thread_info = ThreadInfo::findById($this->log_dir, $id);
+            $params['thread_info'] = $thread_info;
+            $count_articles = intval($thread_info['count_articles']);
+            $first_article = Article::findOneResById($this->log_dir, $id);
+            $params['first_article'] = $first_article;
+            if($count_articles <= self::DEFAULT_ARTICLES) {
+                $offset = 0;
+                $limit = $count_articles;
+            }
+            else {
+                $offset = self::DEFAULT_ARTICLES - $count_articles;
+                $limit = self::DEFAULT_ARTICLES;
+            }
+            $articles = Article::findAllById($this->log_dir, $id, $offset, $limit);
+            $params['articles'] = $articles;
+            self::render($params, $template_file);
+        }
+    }
+
+    public function insert($id, $request)
+    {
+        $article = $request->getPost($request);
+        $insert_article['thread_id'] = $id;
+        $insert_article['user_name'] = $artist['user_name'];
+        $insert_article['mail'] = $artist['mail'];
+        $insert_article['body'] = $artist['body'];
+        return Article::save($this->log_dir, $insert_article);
     }
 
     public function showThreadAll($id)

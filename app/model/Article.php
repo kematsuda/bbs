@@ -4,7 +4,7 @@ class Article {
 
     const MAX_ARTICLES = 1000;
 
-    protected function findOneResById($log_dir, $thread_id, $limit = 1)
+    protected static function findOneResById($log_dir, $thread_id, $limit = 1)
     {
         $sql =<<<SQL
 SELECT
@@ -27,7 +27,7 @@ SQL;
         }
     }
 
-    protected function countArticles($log_dir, $thread_id)
+    protected static function countArticles($log_dir, $thread_id)
     {
         $sql =<<<SQL
 SELECT
@@ -49,7 +49,7 @@ SQL;
 
     }
 
-    protected function findAllById($log_dir, $thread_id, $offset = 1, $limit = self::MAX_ARITICLES)
+    protected static function findAllById($log_dir, $thread_id, $offset = 1, $limit = self::MAX_ARITICLES)
     {
         $sql =<<<SQL
 SELECT
@@ -72,21 +72,21 @@ SQL;
         }
     }
 
-    protected function save($log_dir, $article)
+    protected static function save($log_dir, $article)
     {
         $sql =<<<SQL
 INSERT INTO
     `article`
 SET
-    `id` = ?,
     `thread_id` = ?,
     `user_name` = ?,
+    `mail` = ?,
     `body` = ?,
     `inserted_at` = now()
 SQL;
-        $binds = array($article['id'],
-                       $article['thread_id'],
+        $binds = array($article['thread_id'],
                        $article['user_name'],
+                       $article['mail'],
                        $article['body']);
         try
         {
@@ -97,28 +97,6 @@ SQL;
         catch (Exception $e)
         {
             error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured where thread was created", 2, $log_dir);
-            return false;
-        }
-
-
-    }
-
-    public function deleteAllArticles($log_dir, $thread_id)
-    {
-        $sql =<<<SQL
-DELETE FROM
-    `article`
-WHERE
-    `thread_id` = ?
-SQL;
-        try
-        {
-            DBManager::save($sql, $array($thread_id));
-            return true;
-        }
-        catch (Exception $e)
-        {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured when thread was deleted", 2, $log_dir);
             return false;
         }
     }
