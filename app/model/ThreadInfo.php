@@ -59,7 +59,7 @@ INSERT INTO
     `thread_info`
 SET
     `thread_name` = ?,
-    `updated_at` = now()
+    `updated_at` = now(),
     `count_articles` = 0
 SQL;
         try
