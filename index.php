@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__) . '/app/controller/BBSController.php';
 require_once dirname(__FILE__) . '/app/model/ThreadInfo.php';
+require_once dirname(__FILE__) . '/app/model/Article.php';
 require_once dirname(__FILE__) . '/core/Request.php';
 
 $request = new Request();

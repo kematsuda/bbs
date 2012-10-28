@@ -18,7 +18,7 @@ LIMIT
 SQL;
         try
         {
-            return DBManager::q($sql, array($thread_id));
+            return DBManager::q($sql, 'bbs', array($thread_id));
         }
         catch (Exception $e)
         {
@@ -40,7 +40,7 @@ WHERE
 SQL;
         try
         {
-            return DBManager::q($sql, array($thread_id));
+            return DBManager::q($sql, 'bbs', array($thread_id));
         }
         catch (Exception $e)
         {
@@ -65,7 +65,7 @@ LIMIT
 SQL;
         try
         {
-            return DBManager::q($sql, array($thread_id));
+            return DBManager::q($sql, 'bbs', array($thread_id));
         }
         catch (Exception $e)
         {
@@ -93,7 +93,7 @@ SQL;
                        $article['body']);
         try
         {
-            DBManager::save($sql, $binds);
+            DBManager::save($sql, 'bbs', $binds);
             ThreadInfo::updateThread($log_dir, $article['thread_id']);
             return true;
         }

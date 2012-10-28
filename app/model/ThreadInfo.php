@@ -43,7 +43,7 @@ WHERE
 SQL;
         try
         {
-            return DBManager::q($sql, array($id));
+            return DBManager::q($sql, 'bbs', array($id));
         }
         catch (Exception $e)
         {
@@ -65,7 +65,7 @@ SET
 SQL;
         try
         {
-            DBManager::save($sql, $array($thread_name));
+            DBManager::save($sql, 'bbs' ,$array($thread_name));
             return true;
         }
         catch (Exception $e)
@@ -91,7 +91,7 @@ SQL;
         {
             $article = Article::countArticles($log_dir, $id);
             $count_articles = $article['count'];
-            DBManager::save($sql, $array($id, $count_articles));
+            DBManager::save($sql, 'bbs', $array($id, $count_articles));
             return true;
         }
         catch (Exception $e)
