@@ -1,4 +1,4 @@
-<?php
+<?php //-*- encoding:utf-8 -*-
 
 require_once dirname(__FILE__) . '/app/controller/BBSController.php';
 require_once dirname(__FILE__) . '/app/model/ThreadInfo.php';
@@ -16,7 +16,7 @@ elseif($request_uri === '/create/') {
 }
 elseif(preg_match('/^\/thread\/(\d+)\/$/', $request_uri, $matches) === 1) {
     $id = $matches[1];
-    $c->showThread($id);
+    $c->showThread($id, $request);
 }
 else {
     header("Location: /index.php");

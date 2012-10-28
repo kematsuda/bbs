@@ -1,4 +1,5 @@
-<?php
+<?php //-*- encoding:utf-8 -*-
+
 require_once '/usr/local/lib/Smarty-3.1.12/libs/Smarty.class.php';
 
 Class BBSController
@@ -23,7 +24,7 @@ Class BBSController
 
     public function showThread($id, $request)
     {
-        $template_file = $base_dir_path . 'thread.html';
+        $template_file = $this->base_dir_path . 'thread.html';
         $success_flag = true;
         if(!is_null($request->getPost('article'))) {
             $success_flag = $this->insert($request);
@@ -66,7 +67,7 @@ Class BBSController
 
     public function showThreadAll($id)
     {
-        $template_file = $base_dir_path . 'thread.html';
+        $template_file = $this->base_dir_path . 'thread.html';
         $params = array();
         $thread_info = ThreadInfo::findById($this->log_dir, $id);
         $params['thread_info'] = $thread_info;
