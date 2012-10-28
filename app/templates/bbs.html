@@ -10,7 +10,7 @@
                 {foreach from=$thread_info item=info}
                 {assign var=index value=1}
                 <td>
-                    <a href="/thread/" . {$info['id']} . "/">
+                    <a href="/thread/{$info['id']}/" >
                         {$info['thread_name']}
                     </a>
                 </td>

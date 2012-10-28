@@ -14,10 +14,10 @@ if($request_uri === '/' || $request_uri === '/index.php') {
 elseif($request_uri === '/create/') {
     $c->create();
 }
-elseif(preg_match('/^\/thread/(\d+)\/$/', $request_uri, $matches) === 1) {
+elseif(preg_match('/^\/thread\/(\d+)\/$/', $request_uri, $matches) === 1) {
     $id = $matches[1];
     $c->showThread($id);
 }
 else {
-    header("Location: ./index.php");
+    header("Location: /index.php");
 }
