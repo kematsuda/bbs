@@ -14,7 +14,7 @@ if($request_uri === '/' || $request_uri === '/index.php') {
     $c->show();
 }
 elseif($request_uri === '/create/') {
-    $c->create();
+    $c->create($request);
 }
 elseif(preg_match('/^\/thread\/(\d+)\/$/', $request_uri, $matches) === 1) {
     $id = $matches[1];
