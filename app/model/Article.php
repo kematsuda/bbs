@@ -18,7 +18,7 @@ LIMIT
 SQL;
         try
         {
-            return DBManager::q($sql);
+            return DBManager::q($sql, array($thread_id));
         }
         catch (Exception $e)
         {
@@ -65,7 +65,7 @@ LIMIT
 SQL;
         try
         {
-            return DBManager::q($sql);
+            return DBManager::q($sql, array($thread_id));
         }
         catch (Exception $e)
         {
