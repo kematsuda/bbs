@@ -8,8 +8,8 @@ class DBManager
     public static function setupDB($DbName)
     {
         $file = fopen(dirname(__FILE__) . '/../../conf/db_user.conf', "r");
-        self::$user = fgets($file);
-        self::$DbName = $DbName;
+        self::$user = trim(fgets($file));
+        self::$DbName = 'bbs';
     }
 
     public static function q($sql, $DbName = 'bbs', $binds=array())

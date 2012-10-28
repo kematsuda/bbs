@@ -24,7 +24,7 @@ SQL;
         }
         catch (Exception $e)
         {
-            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 2, $log_dir);
+            error_log(date("Y-m-d h:i:s") . __CLASS__ . ": DB_Error Occured", 3, $log_dir);
             return false;
         }
     }
