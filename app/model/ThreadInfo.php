@@ -35,7 +35,7 @@ SQL;
     {
         $sql =<<< SQL
 SELECT
-    `id`, `thread_name`
+    `id`, `thread_name`, `count_articles`
 FROM
     `thread_info`
 WHERE
