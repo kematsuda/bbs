@@ -9,7 +9,7 @@
                 <h1 style="color:red;font-size:larger;font-weight:normal;margin:-.5em 0 0;">{$thread_info['thread_name']}</h1>
                 {foreach from=$articles item=article}
                 <dl class="thread">
-                    <dt>{$article['article_no']} ：<a href={if $article['mail']===''}"mailto:sage"{else}"{article['mail']}"{/if}><b>{$article['user_name']}</b></a>{$article['inserted_at']}<dd> {$article['body']} <br><br>
+                    <dt>{$article['article_no']} ：<a href="mailto:{if empty($article['mail'])}sage{else}{$article['mail']}{/if}"><b>{$article['user_name']}</b></a>{$article['inserted_at']}<dd> {$article['body']} <br><br>
                 </dl>
                 {/foreach}
                 <a href="/">スレッド一覧へ戻る</a>
