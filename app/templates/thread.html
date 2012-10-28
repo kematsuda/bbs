@@ -5,13 +5,13 @@
     </head>
     <body bgcolor=#efefef text=black link=blue alink=red vlink=#660099>
         <div style="margin-top:1em;"><span style='float:left;'>
-                <a href="http://kebo1213.rackbox.net/">スレッド一覧へ戻る</a>
-                <h1 style="color:red;font-size:larger;font-weight:normal;margin:-.5em 0 0;">{$thread_info['thread_name'}</h1>
+                <a href="/">スレッド一覧へ戻る</a>
+                <h1 style="color:red;font-size:larger;font-weight:normal;margin:-.5em 0 0;">{$thread_info['thread_name']}</h1>
                 {foreach from=$articles as item=article}
                 <dl class="thread">
                     <dt>1 ：<a href="mailto:sage"><b>{$article['user_name']}</b></a>{$article['inserted_at']}<dd> {$article['body']} <br><br>
                 </dl>
-                <a href="http://kebo1213.rackbox.net/">スレッド一覧へ戻る</a>
+                <a href="/">スレッド一覧へ戻る</a>
                 {if }
                 <form method=POST action="">
                     <input type=submit value="書き込む" name=submit/>
