@@ -28,7 +28,7 @@ SQL;
         }
     }
 
-    public static function findAllById($log_dir, $thread_id, $offset = 1, $limit = self::MAX_ARITICLES)
+    public static function findAllById($log_dir, $thread_id, $offset = 1, $limit = self::MAX_ARTICLES)
     {
         $sql =<<<SQL
 SELECT

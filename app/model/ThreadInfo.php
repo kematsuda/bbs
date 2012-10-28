@@ -80,15 +80,16 @@ SQL;
 UPDATE
     `thread_info`
 SET
-    `count_articles` = ?
+    `count_articles` = ?,
     `updated_at` = now()
 WHERE
     `id` = ?
 SQL;
         try
         {
-            $article = self::findById($log_dir, $id);
-            $count_articles = intval($article[0]['count_articles']) + 1;
+            $thread_info = self::findById($log_dir, $id);
+            $count_articles = intval($thread_info[0]['count_articles']) + 1;
+            var_dump($count_articles);
             DBManager::save($sql, 'bbs', array($count_articles, $id));
             return true;
         }
