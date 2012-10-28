@@ -2,10 +2,10 @@
 
 require_once dirname(__FILE__) . '/app/controller/BBSController.php';
 require_once dirname(__FILE__) . '/app/model/ThreadInfo.php';
-require_once dirname(__FILE__) . '/../../core/Request.php';
+require_once dirname(__FILE__) . '/core/Request.php';
 
 $request = new Request();
-$request_uri = preg_replace('/favicon.ico', '', $request->getRequestUri());
+$request_uri = preg_replace('/\/favicon.ico/', '', $request->getRequestUri());
 $c = new BBSController;
 
 if($request_uri === '/' || $request_uri === '/index.php') {
