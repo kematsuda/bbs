@@ -62,7 +62,7 @@ SET
     `user_name` = ?,
     `mail` = ?,
     `body` = ?,
-    `inserted_at` = now()
+    `inserted_at` = now(),
     `article_no` = ?
 SQL;
         $binds = array($article['thread_id'],

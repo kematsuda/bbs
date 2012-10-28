@@ -88,7 +88,7 @@ SQL;
         try
         {
             $article = self::findById($log_dir, $id);
-            $count_articles = $article[0]['count_articles'];
+            $count_articles = intval($article[0]['count_articles']) + 1;
             DBManager::save($sql, 'bbs', array($count_articles, $id));
             return true;
         }
