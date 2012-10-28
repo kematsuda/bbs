@@ -4,7 +4,7 @@ class Article {
 
     const MAX_ARTICLES = 1000;
 
-    protected static function findOneResById($log_dir, $thread_id, $limit = 1)
+    public static function findOneResById($log_dir, $thread_id, $limit = 1)
     {
         $sql =<<<SQL
 SELECT
@@ -28,7 +28,7 @@ SQL;
         }
     }
 
-    protected static function countArticles($log_dir, $thread_id)
+    public static function countArticles($log_dir, $thread_id)
     {
         $sql =<<<SQL
 SELECT
@@ -51,7 +51,7 @@ SQL;
 
     }
 
-    protected static function findAllById($log_dir, $thread_id, $offset = 1, $limit = self::MAX_ARITICLES)
+    public static function findAllById($log_dir, $thread_id, $offset = 1, $limit = self::MAX_ARITICLES)
     {
         $sql =<<<SQL
 SELECT
@@ -75,7 +75,7 @@ SQL;
         }
     }
 
-    protected static function save($log_dir, $article)
+    public static function save($log_dir, $article)
     {
         $sql =<<<SQL
 INSERT INTO
