@@ -94,14 +94,14 @@ Class BBSController
     public function create($request)
     {
         $requests = array();
-        if(!is_null($request->getPost('article'))) {
+        if(!is_null($request->getPost('subject'))) {
             $subject = $request->getPost('subject');
-            $request['user_name'] = $request->getPost('name');
-            $request['mail'] = $request->getPost('mail');
-            $request['body'] = $request->getPost('body');
+            $requests['user_name'] = $request->getPost('name');
+            $requests['mail'] = $request->getPost('mail');
+            $requests['body'] = $request->getPost('body');
             ThreadInfo::createThread($this->log_dir, $subject);
             $id = ThreadInfo::findLatestThread();
-            $this->insert($id, $request, 0);
+            $this->insert($id, $requests, 0);
             $this->show();
         }
         else {

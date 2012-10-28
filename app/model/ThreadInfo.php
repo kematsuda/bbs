@@ -64,7 +64,7 @@ SET
 SQL;
         try
         {
-            DBManager::save($sql, 'bbs' ,$array($thread_name));
+            DBManager::save($sql, 'bbs' ,array($thread_name));
             return true;
         }
         catch (Exception $e)
