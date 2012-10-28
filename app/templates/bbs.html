@@ -7,10 +7,14 @@
         <h3>簡易BBS</h3>
         <table border=1 cellspacing=7 cellpadding=3 width=95% bgcolor="#CCFFCC"align=center>
             <tr>
-                {foreach from=$thread_names item=thread_name}
+                {foreach from=$thread_info item=info}
+                {assign var=index value=1}
                 <td>
-                    {$thread_name}
+                    <a href="/thread/" . {$info['id']} . "/">
+                        {$info['thread_name']}
+                    </a>
                 </td>
+                {assign var=index value=$index+1}
                 {/foreach}
             </tr>
         </table>
