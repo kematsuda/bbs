@@ -87,9 +87,9 @@ WHERE
 SQL;
         try
         {
-            $article = Article::countArticles($log_dir, $id);
-            $count_articles = $article['count'];
-            DBManager::save($sql, 'bbs', $array($id, $count_articles));
+            $article = self::findById($log_dir, $id);
+            $count_articles = $article[0]['count_articles'];
+            DBManager::save($sql, 'bbs', array($count_articles, $id));
             return true;
         }
         catch (Exception $e)
