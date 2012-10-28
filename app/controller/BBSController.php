@@ -26,8 +26,9 @@ Class BBSController
     {
         $template_file = $this->base_dir_path . 'thread.html';
         $success_flag = true;
-        if(!is_null($request->getPost('article'))) {
-            $success_flag = $this->insert($id, $request);
+        $thread_info = ThreadInfo::findById($this->log_dir, $id);
+        if(!is_null($request->getPost('article')) && intval($thread_info[0]['count_articles']) < 1000) {
+            $success_flag = $this->insert($id, $request, $thread_info[0]['count_articles']);
         }
         if(!$success_flag) {
             $params['message'] = '投稿に失敗しました';
@@ -36,8 +37,7 @@ Class BBSController
         }
         else {
             $params = array();
-            $thread_info = ThreadInfo::findById($this->log_dir, $id);
-            $params['thread_info'] = $thread_info;
+            $params['thread_info'] = $thread_info[0];
             $count_articles = intval($thread_info[0]['count_articles']);
             $first_article = Article::findOneResById($this->log_dir, $id);
             $params['first_article'] = $first_article;
@@ -50,18 +50,32 @@ Class BBSController
                 $limit = self::DEFAULT_ARTICLES;
             }
             $articles = Article::findAllById($this->log_dir, $id, $offset, $limit);
+            if($count_articles >=1000) {
+                $articles[] = self::addLastArticle();
+            }
             $params['articles'] = $articles;
             self::render($params, $template_file);
         }
     }
 
-    public function insert($id, $request)
+    public static function addLastArticle()
+    {
+        $article = array();
+        $article['user_name'] = '名無しさん';
+        $article['mail'] = 'sage';
+        $article['body'] = 'このスレッドは1000を越えました・・・\n次のスレッドを立ててください。';
+        $article['article_no'] = 1001;
+        return $article;
+    }
+
+    public function insert($id, $request, $article_no)
     {
         $article = $request->getPost('article');
         $insert_article['thread_id'] = $id;
         $insert_article['user_name'] = $article['user_name'];
         $insert_article['mail'] = $article['mail'];
         $insert_article['body'] = $article['body'];
+        $insert_article['article_no'] = intval($article_no) +1;
         return Article::save($this->log_dir, $insert_article);
     }
 

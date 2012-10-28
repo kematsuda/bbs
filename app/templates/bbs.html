@@ -4,14 +4,14 @@
         <title>bbs</title>
     </head>
     <body>
-        <h3>簡易BBS</h3>
+        <h3>邁｡譏釘BS</h3>
         <table border=1 cellspacing=7 cellpadding=3 width=95% bgcolor="#CCFFCC"align=center>
             <tr>
-                {foreach from=$thread_info item=info}
                 {assign var=index value=1}
+                {foreach from=$thread_info item=info}
                 <td>
                     <a href="/thread/{$info['id']}/" >
-                        {$info['thread_name']}
+                        {$index}: {$info['thread_name']}
                     </a>
                 </td>
                 {assign var=index value=$index+1}
@@ -21,7 +21,7 @@
         <table border=1 cellspacing=7 cellpadding=3 width=95% bgcolor="#CCFFCC"align=center>
             <tr>
                 <td>
-                    <a href="/create/" >スレッド新規作成</a>
+                    <a href="/create/" >繧ｹ繝ｬ繝����ラ譁ｰ隕丈ｽ懈����</a>
                 </td>
             </tr>
         </table>

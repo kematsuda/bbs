@@ -5,18 +5,18 @@
     </head>
     <body bgcolor=#efefef text=black link=blue alink=red vlink=#660099>
         <div style="margin-top:1em;"><span style='float:left;'>
-                <a href="/">ƒXƒŒƒbƒhˆê——‚Ö–ß‚é</a>
+                <a href="/">ã‚¹ãƒ¬ãƒƒãƒ‰ä¸€è¦§ã¸æˆ»ã‚‹</a>
                 <h1 style="color:red;font-size:larger;font-weight:normal;margin:-.5em 0 0;">{$thread_info['thread_name']}</h1>
                 {foreach from=$articles item=article}
                 <dl class="thread">
-                    <dt>1 F<a href="mailto:sage"><b>{$article['user_name']}</b></a>{$article['inserted_at']}<dd> {$article['body']} <br><br>
+                    <dt>{$article['article_no']} ï¼š<a href="mailto:sage"><b>{$article['user_name']}</b></a>{$article['inserted_at']}<dd> {$article['body']} <br><br>
                 </dl>
                 {/foreach}
-                <a href="/">ƒXƒŒƒbƒhˆê——‚Ö–ß‚é</a>
+                <a href="/">ã‚¹ãƒ¬ãƒƒãƒ‰ä¸€è¦§ã¸æˆ»ã‚‹</a>
                 <form method=POST action="">
-                    <input type=submit value="‘‚«‚Ş" name=submit/>
-                    –¼‘OF <input name="article[user_name]" size=19 />
-                    E-mail<font size=1> (È—ª‰Â) </font>: <input name="article[mail]" size=19><br />
+                    <input type=submit value="æ›¸ãè¾¼ã‚€" name=submit/>
+                    åå‰ï¼š <input name="article[user_name]" size=19 />
+                    E-mail<font size=1>ï¼ˆçœç•¥å¯ï¼‰ </font>: <input name="article[mail]" size=19><br />
                         <textarea rows=5 cols=70 wrap=off name="article[body]"></textarea>
                 </form>
     </body>

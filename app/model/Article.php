@@ -63,11 +63,13 @@ SET
     `mail` = ?,
     `body` = ?,
     `inserted_at` = now()
+    `article_no` = ?
 SQL;
         $binds = array($article['thread_id'],
                        $article['user_name'],
                        $article['mail'],
-                       $article['body']);
+                       $article['body'],
+                       $article['article_no']);
         try
         {
             DBManager::save($sql, 'bbs', $binds);
