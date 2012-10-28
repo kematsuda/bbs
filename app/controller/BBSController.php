@@ -106,7 +106,7 @@ Class BBSController
         }
         else {
             $template_file = $this->base_dir_path . 'create_thread.html';
-            self::render($array(), $template_file);
+            self::render(array(), $template_file);
         }
 
     }
