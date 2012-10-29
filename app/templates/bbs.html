@@ -4,14 +4,14 @@
         <title>bbs</title>
     </head>
     <body>
-        <h3>ι‚ο½΅θ­ι‡BS</h3>
+        <h3>ξ²΅λψΕ£BS</h3>
         <table border=1 cellspacing=7 cellpadding=3 width=95% bgcolor="#CCFFCC"align=center>
             <tr>
                 {assign var=index value=1}
                 {foreach from=$thread_info item=info}
                 <td>
                     <a href="/thread/{$info['id']}/" >
-                        {$index}: {$info['thread_name']}
+                        {$index|escape}: {$info['thread_name']|escape}
                     </a>
                 </td>
                 {assign var=index value=$index+1}
@@ -21,7 +21,7 @@
         <table border=1 cellspacing=7 cellpadding=3 width=95% bgcolor="#CCFFCC"align=center>
             <tr>
                 <td>
-                    <a href="/create/" >ηΉ§ο½ΉηΉο½¬ηΉυ€γƒ©θ­ο½°ι•δΈο½½ζ‡υ€•³</a>
+                    <a href="/create/" >εβΉεγ¬εγ¦ε¥ιλφ°π¨Ύζ½Ψθ―π</a>
                 </td>
             </tr>
         </table>
